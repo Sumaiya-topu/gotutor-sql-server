@@ -11,10 +11,12 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String
-  role  String
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String
+  role    String
+  profile Profile?
+  posts   post[]
 
   @@map("users")
 }
@@ -26,7 +28,8 @@ model Profile {
   backgroundMedium String
   address          String
   gender           String
-  user_id          Int
+  user_id          Int    @unique
+  user             User   @relation(fields: [user_id], references: [id])
 
   @@map("profiles")
 }
@@ -40,6 +43,8 @@ model post {
   salary_range String
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
+  authorId     Int
+  author       User     @relation(fields: [authorId], references: [id])
 
   @@map("posts")
 }
