@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { UserService } from "./user.service"
+import { log } from "console";
 
 const insertIntoDB = async (req:Request, res: Response)=>{
     try{
@@ -27,7 +28,21 @@ const insertOrUpdateProfile = async (req:Request, res: Response) =>{
     }
 }
 
+const getUsers = async (req:Request, res:Response)=>{
+    try{
+        const result = await UserService.getUsers();
+         res.send({
+            success: true,
+            message: "Data fetched successfully!",
+            data:result
+        })
+    }catch(err){
+        console.log(err);
+    }
+}
+
 export const UserController ={
     insertIntoDB,
-    insertOrUpdateProfile
+    insertOrUpdateProfile,
+    getUsers
 }
