@@ -35,12 +35,34 @@ const insertOrUpdateProfile = async(data:Profile):Promise<Profile> =>{
 }
 
 const getUsers = async ()=>{
-    const result = await prisma.user.findMany();
+    const result = await prisma.user.findMany({
+        //We use select to get specific fields
+        // select:{
+        //     email:true
+        // }
+        //include manages to populate the data
+        include : {
+            profile: true
+        }
+    });
+    return result;
+}
+
+const getSingleUser = async (id:number)=>{
+    const result = await prisma.user.findUnique({
+       where:{
+        id
+       },
+        include : {
+            profile: true
+        }
+    });
     return result;
 }
 
  export const UserService ={
     insertIntoDB,
     insertOrUpdateProfile,
-    getUsers
+    getUsers,
+    getSingleUser
  }
