@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { UserService } from "./user.service"
-import { log } from "console";
+
 
 const insertIntoDB = async (req:Request, res: Response)=>{
     try{
