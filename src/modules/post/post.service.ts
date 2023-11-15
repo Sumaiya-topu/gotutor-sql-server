@@ -10,7 +10,11 @@ const createPost = async(data: post): Promise<post>=>{
 }
 
 const getAllPosts= async()=>{
-    const result = await prisma.post.findMany();
+    const result = await prisma.post.findMany({
+        include : {
+            author: true
+        }
+    });
     return result;
 }
 
