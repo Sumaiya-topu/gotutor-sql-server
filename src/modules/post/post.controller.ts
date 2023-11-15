@@ -27,7 +27,22 @@ const getAllPosts = async(req:Request,res:Response)=>{
     }
 }
 
+const getPostByID= async(req:Request, res:Response)=>{
+    try{
+        const result = await PostService.getPostByID(parseInt(req.params.id));
+         res.send({
+            success: true,
+            message: "Data fetched successfully!",
+            data:result
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 export const PostController={
     createPost,
-    getAllPosts
+    getAllPosts,
+    getPostByID
 }
