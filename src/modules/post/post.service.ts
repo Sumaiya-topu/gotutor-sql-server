@@ -9,10 +9,14 @@ const createPost = async(data: post): Promise<post>=>{
     return result;
 }
 
-const getAllPosts= async()=>{
+const getAllPosts= async(options: any)=>{
+    const {sortBy, sortOrder}= options
     const result = await prisma.post.findMany({
         include : {
             author: true
+        },
+        orderBy:{
+           [sortBy]: sortOrder
         }
     });
     return result;
